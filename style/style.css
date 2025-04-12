@@ -1,0 +1,36 @@
+body{
+    background-color: rgb(36, 35, 35);
+}
+nav{
+    height: 5vh;
+    padding-bottom: 3em;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 5px solid rgb(126, 121, 121);
+}
+nav a{
+    margin-left: 3em;
+    padding: 5px;
+}
+nav a p{
+    
+    width: 8em;
+    word-wrap: break-word;
+    text-wrap: stable;
+    background-color: rgb(36, 35, 35);
+    border-radius: 5px;
+}
+nav a p:hover{
+    background-color: rgb(126, 121, 121);
+}
+a{
+    color: rgb(20, 86, 141);
+}
+#game_window{
+    display: flex;
+    flex-direction: row;
+}
+canvas{
+    background-color: brown;
+    image-rendering: pixelated;
+}

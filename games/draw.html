@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+
+<?php 
+    include ('../banner.html');
+?>
+<div id="game_div"></div>
+    <canvas></canvas>
+<script type="module">
+
+class Canvas{
+    used_canvas = document.querySelector("canvas");
+
+    height = 720;
+    width = 1280;
+
+    context = this.used_canvas.getContext("2d");
+
+    constructor(){
+        
+        this.used_canvas.width = this.width;
+        this.used_canvas.height = this.height
+        document.querySelector("canvas").setAttribute("height:",` ${this.height}`)
+        document.querySelector("canvas").setAttribute("width:",`${this.width}`)
+    }
+
+    setBackground(color){
+        this.context.fillStyle = `rgb(${color})`;
+        this.context.fillRect(0, 0, this.used_canvas.width, this.used_canvas.height);
+    }
+
+    drawCircle(x,y,radius){
+        this.context.beginPath();
+        this.context.arc(x,y,radius,0,2*Math.PI);
+        this.context.fill();
+        this.context.stroke();
+    }
+}
+
+let c = new Canvas;
+//c.setBackground("200,200,200");
+
+
+function test(){
+    let x = 1200;
+    let y = 100;
+    let r = 50;
+    let offset = 5;
+    setInterval(()=>{
+        c.context.reset();
+        c.drawCircle(x,y,r);
+        x += offset;
+        if(x+r >c.width || x-r <0){
+            offset = offset*-1;
+        }
+    },1)
+}
+test();
+</script>
+</body>
+</html>
