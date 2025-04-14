@@ -34,6 +34,9 @@ class Canvas{
     setBackground(color){
         this.context.fillStyle = `rgb(${color})`;
         this.context.fillRect(0, 0, this.used_canvas.width, this.used_canvas.height);
+        this.context.fillStyle = `rgb(0,500,500)`;
+        this.context.fillRect((this.used_canvas.width/2), 0, 1,this.used_canvas.height);
+        this.context.fillRect(0, (this.used_canvas.height/2), this.used_canvas.width,1);
     }
 
     drawCircle(x,y,radius){
@@ -42,19 +45,66 @@ class Canvas{
         this.context.fill();
         this.context.stroke();
     }
+
+    draw(x,y,draw_data){    //une méthode qui créé ce qu'on lui donne en fonction de l'objet draw data permet de dessiner a partir du centre
+        this.context.beginPath();
+    //    console.log("draw",x,y, draw_data)
+        if(draw_data.mode == "rect"){
+  //          console.log("rect")
+            this.context.fillStyle = `rgb(${draw_data.color})`;
+            this.context.fillRect(x-(draw_data.width/2),y-(draw_data.height/2),draw_data.width,draw_data.height);
+        }
+    }
+}
+
+class entity{
+    posx = (c.used_canvas.width/2);
+    posy = (c.used_canvas.height/2);
+    vx = 0;
+    vy = 0;
+    height = 1;
+    width = 1;
+    mode = "rect";
+    color = "0,500,0";
+
+    update(){
+        let draw_data = {
+            height: this.height,
+            width: this.width,
+            mode: this.mode,
+            color: this.color
+        }
+        c.draw(this.posx,this.posy,draw_data)
+    }
+
 }
 
 let c = new Canvas;
-//c.setBackground("200,200,200");
+let cube = new entity;
 
+c.setBackground("200,200,200");
+cube.update();
+let entity_array = [];
+let start = Date.now();
+//console.log(start);
+for(let i=0; i<10000; i++) {
+    let cube = new entity;
+    entity_array.push(cube);
+    entity_array[i].posx = Math.random()* c.used_canvas.width
+    entity_array[i].posy = Math.random()* c.used_canvas.height
+    entity_array[i].update();
+}
+let end = Date.now()
+console.log(end-start);
 
+/*
 function test(){
     let x = 1200;
     let y = 100;
-    let r = 50;
-    let offset = 5;
+    let r = 5;
+  //  let offset = 5;
     setInterval(()=>{
-        c.context.reset();
+        //c.context.reset();
         c.drawCircle(x,y,r);
         x += offset;
         if(x+r >c.width || x-r <0){
@@ -62,7 +112,7 @@ function test(){
         }
     },1)
 }
-test();
+*/
 </script>
 </body>
 </html>
