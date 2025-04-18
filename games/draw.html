@@ -1,3 +1,7 @@
+<?php
+header("Cache-Control: no-cache, must-revalidate");
+header("Pragma: no-cache");
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -82,6 +86,8 @@ class Canvas{
             }
         });
     }
+
+
     render(dest_canvas){
         this.context.putImageData(this.image,0,0)
         dest_canvas.drawImage(bck_canvas.used_canvas,0,0);
@@ -96,9 +102,9 @@ class entity{
     height = 1;
     width = 1;
     mode = "pixel";
-    r = 0;
-    g = 0;
-    b = 250;
+    r = Math.floor(Math.random()* 250);
+    g = Math.floor(Math.random()* 250);
+    b = Math.floor(Math.random()* 250);
     a = 250;
 
     build(){
@@ -108,19 +114,38 @@ class entity{
     }
 }
 
+class Engine{
+
+
+    game_loop(){
+        init()
+        //console.log(this.game_loop)
+        requestAnimationFrame(()=> this.game_loop())
+    }
+}
+
 
 let c = new Canvas();
 let bck_canvas = new Canvas(true);
+let engine = new Engine();
 
-c.setBackground("200,0,0");
-let start = performance.now();
-for(let i=0; i<5000000; i++) {
-    let pixel = new entity;
-    pixel.build();
+
+engine.game_loop();
+
+
+function init(){
+    c.setBackground("200,0,0");
+    //let start = performance.now();
+    for(let i=0; i<240000; i++) {
+        let pixel = new entity;
+        pixel.mode = "pixel";
+        pixel.build();
+    }
+    bck_canvas.render(c.context);
+    //let end = performance.now()
+    //console.log("Made in this time:",end-start);
 }
-bck_canvas.render(c.context);
-let end = performance.now()
-console.log("Made in this time:",end-start);
+
 
 </script>
 </body>
