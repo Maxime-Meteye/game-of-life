@@ -19,8 +19,8 @@ header("Pragma: no-cache");
     <canvas id="game_canvas"></canvas>
 <script type="module">
 
-const HEIGHT = 720;
-const WIDTH = 1280
+const HEIGHT = 700;
+const WIDTH = 1200;
 
 
 class Canvas{
@@ -102,9 +102,9 @@ class entity{
     height = 1;
     width = 1;
     mode = "pixel";
-    r = Math.floor(Math.random()* 250);
-    g = Math.floor(Math.random()* 250);
-    b = Math.floor(Math.random()* 250);
+    r = 0;
+    g = 0;
+    b = 0;
     a = 250;
 
     build(){
@@ -114,37 +114,121 @@ class entity{
     }
 }
 
-class Engine{
+class life extends entity{
+    alive = false;
 
+    update(entity_list,index){
+        let nb_alive = 0;
+       let neighbors = [
+            entity_list[index-WIDTH-1],
+            entity_list[index-WIDTH],
+            entity_list[index-WIDTH+1],
+            entity_list[index-1],
+            entity_list[index+1],
+            entity_list[index+WIDTH-1],
+            entity_list[index+WIDTH],
+            entity_list[index+WIDTH+1]
+        ]
+        neighbors.forEach(element =>{
+            try{
+                if(element && element.alive){
+                    nb_alive ++;
+                }
+            }catch{}
+        })
+        if(nb_alive == 3){
+            this.alive = true;
+        }else if(nb_alive == 2 ){
 
-    game_loop(){
-        init()
-        //console.log(this.game_loop)
-        requestAnimationFrame(()=> this.game_loop())
+        }else{
+            this.alive = false;
+        }
+        /*
+        if(this.alive){
+            if(nb_alive < 2 || nb_alive > 3){
+                this.alive = false;
+                this.a = 0;
+            }
+        }else if(nb_alive == 3){
+            this.alive = true;
+            this.a = 250
+        }
+        */
+        if(this.alive){
+            this.r = 0;
+            this.g = 0;
+            this.b = 0;
+        }else{
+            this.r = 250;
+            this.g = 250;
+            this.b = 250;
+        }
+        if(index == 2000){
+            console.log(nb_alive)
+        }
     }
 }
 
-
+class Engine{
+    entity_list = [];
+    game_loop(){
+        let alive_nb = 0;
+        old_entity_list = this.entity_list;
+        this.entity_list.forEach((element,index)=>{
+            element.update(old_entity_list,index);
+            element.build();
+            if(element.alive){
+                alive_nb ++;
+            }
+        })
+        let start = performance.now();
+        bck_canvas.render(c.context);
+        let end = performance.now()
+        //console.log("Made in this time:",end-start, 'alive :', alive_nb);
+        requestAnimationFrame(()=> this.game_loop())
+    }
+}
+let old_entity_list = [];
 let c = new Canvas();
 let bck_canvas = new Canvas(true);
 let engine = new Engine();
 
 
-engine.game_loop();
-
+let alive = 0;
 
 function init(){
-    c.setBackground("200,0,0");
-    //let start = performance.now();
-    for(let i=0; i<240000; i++) {
+    c.setBackground("250,250,250");
+    for(let y=0; y<HEIGHT; y++){
+        for(let x=0; x<WIDTH; x++){
+            let cell = new life()
+            cell.mode = "pixel";
+            cell.posx = x;
+            cell.posy = y;
+            let random = Math.random()
+            cell.alive = random  > 0.01;
+            if(cell.alive){
+                alive ++;
+            }
+            engine.entity_list.push(cell)
+        }
+        /*
         let pixel = new entity;
         pixel.mode = "pixel";
         pixel.build();
+        */
     }
-    bck_canvas.render(c.context);
-    //let end = performance.now()
-    //console.log("Made in this time:",end-start);
+    //console.log("before update :",engine.entity_list[2])
+    engine.entity_list.forEach((element,index)=>{
+        element.update(engine.entity_list,index)
+        element.build();
+    })
 }
+init()
+//bck_canvas.render(c.context);
+
+engine.game_loop();
+//console.log("after :",engine.entity_list[2])
+//console.log("alive", alive);
 
 
 </script>
