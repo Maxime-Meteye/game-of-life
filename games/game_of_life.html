@@ -130,11 +130,9 @@ class life extends entity{
             entity_list[index+WIDTH+1]
         ]
         neighbors.forEach(element =>{
-            try{
-                if(element && element.alive){
-                    nb_alive ++;
-                }
-            }catch{}
+            if(element && element.alive){
+                nb_alive ++;
+            }
         })
         if(nb_alive == 3){
             this.alive = true;
@@ -163,9 +161,6 @@ class life extends entity{
             this.g = 250;
             this.b = 250;
         }
-        if(index == 2000){
-            console.log(nb_alive)
-        }
     }
 }
 
@@ -173,7 +168,7 @@ class Engine{
     entity_list = [];
     game_loop(){
         let alive_nb = 0;
-        old_entity_list = this.entity_list;
+        let old_entity_list = this.entity_list.map(cell => ({alive:cell.alive}));
         this.entity_list.forEach((element,index)=>{
             element.update(old_entity_list,index);
             element.build();
@@ -184,11 +179,10 @@ class Engine{
         let start = performance.now();
         bck_canvas.render(c.context);
         let end = performance.now()
-        //console.log("Made in this time:",end-start, 'alive :', alive_nb);
+       console.log("Made in this time:",end-start, 'alive :', alive_nb);
         requestAnimationFrame(()=> this.game_loop())
     }
 }
-let old_entity_list = [];
 let c = new Canvas();
 let bck_canvas = new Canvas(true);
 let engine = new Engine();
@@ -205,7 +199,7 @@ function init(){
             cell.posx = x;
             cell.posy = y;
             let random = Math.random()
-            cell.alive = random  > 0.01;
+            cell.alive = random  > 0.05;
             if(cell.alive){
                 alive ++;
             }
