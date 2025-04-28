@@ -1,15 +1,11 @@
-Faire un petit shoot em up
-Faire un petit jeu de plateforme
-Faire un petit fps genre 3d monster maze
-Faire un truc de déssin
-Faire un outil qui gére la collision de boules à l'écran
-Faire un pong
+//Faire un petit shoot em up
+//Faire un petit jeu de plateforme
+//Faire un petit fps genre 3d monster maze
+//Faire un truc de déssin
+//Faire un outil qui gére la collision de boules à l'écran
+//DONE Faire un game of life
+//Faire un pong
 
-Draw:
-    -Rajouter d'autres boules avec des collisions entres elles
-    -Géstion des mouvements en 2d
-    -Rajouter une boule sur la position du clic
-    -Géstion de la gravité
-    -Géstion de l'inertie
-    -Renommer Draw en autre chose parce que draw en beads.
-    Le transformer en game of life
+//Game of life :
+Améliorer la vitesse de la boucle restructurer le code pour que jeu et moteur soit bien distints.
+
