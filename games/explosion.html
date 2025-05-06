@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox</title>
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+
+<?php 
+    include ('../banner.html');
+?>
+<div id="game_div"></div>
+    <canvas id="game_canvas"></canvas>
+<script type="module">
+import{Canvas,entity} from '../glitchengine/glitch_engine.mjs'
+
+const HEIGHT = 700;
+const WIDTH = 1200;
+
+class Engine{
+    game_loop(){
+        let start = performance.now();
+        bck_canvas.render(c.context);
+        let end = performance.now()
+        //console.log("Made in this time:",end-start,);
+        requestAnimationFrame(()=> this.game_loop())
+    }
+}
+
+class explosion extends entity{
+    force = 10;
+
+    constructor(bck_canvas) {
+        super(bck_canvas);
+        this.alive = false;
+    }
+
+    renderExplosion(){
+        bck_canvas.buildCircle(this.posx,this.posy,1*this.force,`250,0,0`)
+        console.log("render")
+    }
+}
+
+
+let c = new Canvas(false, HEIGHT, WIDTH);
+let bck_canvas = new Canvas(true, HEIGHT, WIDTH);
+let explosion1 = new explosion(bck_canvas);
+let engine = new Engine();
+c.setBackground("250,250,250");
+explosion1.posx = 500;
+explosion1.posy = 500;
+explosion1.renderExplosion()
+
+engine.game_loop();
+
+</script>
