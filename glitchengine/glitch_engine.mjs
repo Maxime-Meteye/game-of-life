@@ -38,12 +38,12 @@ export class Canvas{
     }
 
     buildCircle(x,y,radius,color){
+        this.context.strokeStyle = `rgb(${color})`;
         this.context.fillStyle = `rgb(${color})`;
         this.context.beginPath();
         this.context.arc(x,y,radius,0,2*Math.PI);
         this.context.fill();
         this.context.stroke();
-        console.log("build",x,y,radius,color);
     }
     buildPixel(pixel_data){
         const i = (pixel_data.posy * this.width + pixel_data.posx) * 4;
@@ -69,8 +69,8 @@ export class Canvas{
 
 
     render(dest_canvas){
-        //this.context.putImageData(this.image,0,0)
         dest_canvas.drawImage(this.used_canvas,0,0); //TODO Gérer le render pour afficher les particules et les cercles
+        this.context.putImageData(this.image,0,0)
     }
 }
 
