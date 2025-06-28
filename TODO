@@ -7,5 +7,7 @@
 //Faire un pong
 
 //Game of life :
-Améliorer la vitesse de la boucle restructurer le code pour que jeu et moteur soit bien distints.
+//Améliorer la vitesse de la boucle
+
+// Faire un simulateur d'insecte, avec un reseau neural.
 
