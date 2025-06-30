@@ -56,7 +56,7 @@ export class Canvas{
 
     draw(display_to){
         this.displayed_array.forEach(element => {
-            this.context.beginPath();
+            //this.context.beginPath();
             if(element.mode == "pixel"){
                 this.context.fillStyle = `rgb(${element.color})`;
                 this.context.fillRect(element.posx-(element.width/2),element.posy-(element.height/2),element.width,element.height);
@@ -69,8 +69,13 @@ export class Canvas{
 
 
     render(dest_canvas){
+        //this.context.putImageData(this.image,0,0)
+        
+        createImageBitmap(this.image).then(bitmap => {
+            this.context.drawImage(bitmap, 0, 0);
+        });
         dest_canvas.drawImage(this.used_canvas,0,0); //TODO Gérer le render pour afficher les particules et les cercles
-        this.context.putImageData(this.image,0,0)
+        
     }
 }
 
@@ -93,7 +98,15 @@ export class entity{
 
     build(){
         if(this.mode == "pixel"){
-            this.used_canvas.buildPixel(this);
+            this.used_canvas.buildPixel({
+                posy: this.posy,
+                posx: this.posx,
+                width: this.width,
+                r: this.r,
+                g: this.g,
+                b: this.b,
+                a: this.a
+            });
         }
     }
 }
