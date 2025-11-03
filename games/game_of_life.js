@@ -1,4 +1,4 @@
-import {Canvas,entity} from '/glitchengine/glitch_engine.mjs'
+import {Canvas,entity} from '../glitchengine/glitch_engine.mjs'
 
 /*	HEIGHT and WIDTH reflect the resolution divided by 4. Division by 4 allows the page run smoothly on larger devices
 	Another solution could have been to define breakpoints, could be cleaner on really large displays.
