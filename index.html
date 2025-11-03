@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandbox</title>
-    <link rel="stylesheet" href="style/style.css">
+    <title>Game of Life</title>
+	<meta name="description" content="Conway's game of life programmed by Maxime Météyé">
+    <link rel="stylesheet" href="/style/style.css">
 </head>
 <body>
+	<main>
+		<div id="game_div">
+		<canvas id="game_canvas"></canvas>
+	</div>
+	</main>
+	<footer>
+		<p>© 2025 Maxime Météyé — Released under the MIT License</p>
+	</footer>
 
-<?php 
-    include ('./banner.html');
-?>
-
+	<script type="module" src="/games/game_of_life.js"></script>
 </body>
 </html>
