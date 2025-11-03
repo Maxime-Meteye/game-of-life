@@ -1,3 +1,5 @@
+/*© 2025 Maxime Météyé — Released under the MIT License */
+
 import {Canvas,entity} from '../glitchengine/glitch_engine.mjs'
 
 /*	HEIGHT and WIDTH reflect the resolution divided by 4. Division by 4 allows the page run smoothly on larger devices
@@ -7,8 +9,8 @@ import {Canvas,entity} from '../glitchengine/glitch_engine.mjs'
 
 	Defines the size of the grid the cells are on
 */
-const HEIGHT = Math.ceil(screen.height /4);
-const WIDTH = Math.ceil(screen.width /4);
+const HEIGHT = Math.ceil(screen.availHeight /4);
+const WIDTH = Math.ceil(screen.availWidth /4);
 
 /*
 	Definition of a cell
@@ -141,7 +143,7 @@ class Engine{
 
 		//Console log of the time needed to make and display the frame.
         //console.log("Frame duration:", frameDuration.toFixed(2), "ms");
-		console.log(this.entity_list.length);
+		//console.log(this.entity_list.length);
 
 		//Calls back itself once the frame is drawn
         requestAnimationFrame(()=> this.game_loop())
